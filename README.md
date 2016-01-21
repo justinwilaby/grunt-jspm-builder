@@ -9,7 +9,9 @@ $ npm install --save-dev grunt-jspm-builder
 ## Usage
 
 The grunt-jspm-builder provides all [jspm production workflows](http://jspm.io/docs/production-workflows.html) via *most* [SystemJS APIs](https://github.com/systemjs/builder). 
-
+```js
+grunt.loadNpmTasks('grunt-jspm-builder');
+```
 ### Monolithic Bundle
 Build a single monolithic bundle including all 3rd party libraries.
 
