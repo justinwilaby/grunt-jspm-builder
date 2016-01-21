@@ -92,7 +92,7 @@ Build the dependencies in common between 2 modules including all project-level a
 grunt.initConfig({
     // ...
     jspm: {
-        commonBundle: {
+        createCommon: {
             options: {
                 sfx: false,
                 minify: true,
@@ -130,6 +130,9 @@ grunt.initConfig({
                 "build/modules/module1": "js/modules/module1 - core-libs",
                 "build/modules/module2": "js/modules/module1 - core-libs"
             },
+            // The 'commonBundle' Object is required in order
+            // to tell the builder to compare the above source 
+            // trees and create a bundle containing common deps.
             commonBundle: {
                 // options for building the common bundle
                 options: {
