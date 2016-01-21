@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = function (grunt) {
-    var eachAsync = require("each-async");
     var config = require("jspm/lib/config");
 
     // jspm for simple builds
@@ -15,7 +14,7 @@ module.exports = function (grunt) {
         let files = this.files;
         grunt.log.writeln(grunt.log.wordlist(['Tracing expressions:'], {color: 'blue'}));
         const thenables = [];
-        files.forEach(function (file, index) {
+        files.forEach(function (file) {
             const expression = file.orig.src[0].replace(/\.js/, "");
             thenables.push(builder.trace(expression).then(tree => {
                 grunt.log.write(expression + '...');
@@ -111,8 +110,8 @@ module.exports = function (grunt) {
             const thenables = [];
             const done = self.async();
             self.files.forEach(file => {
-                var moduleExpression = !file.src.length ? file.orig.src[0].replace(/\.js/, "") : file.src[0].replace(base, "");
-                thenables.push(bundle(moduleExpression, file.dest, options));
+                var moduleExpression = file.orig.src[0].replace(/\.js/, "");
+                thenables.push(jspm[bundle](moduleExpression, file.dest, options));
             });
             Promise.all(thenables).then(done);
         }
