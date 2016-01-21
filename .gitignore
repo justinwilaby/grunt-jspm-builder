@@ -1,0 +1,9 @@
+# build dependencies
+/jspm_packages
+/node_modules
+# generated
+/dist
+/lib
+/modules
+.DS_Store
+.idea/

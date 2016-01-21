@@ -1,0 +1,37 @@
+{
+  "name": "grunt-jspm-builder",
+  "version": "0.1.0",
+  "dependencies": {
+    "jspm": "^0.16.15"
+  },
+  "description": "A Grunt task for bundling based on all jspm production workflows.",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13"
+  },
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/justinwilaby/grunt-jspm-builder.git"
+  },
+  "engines": {
+    "node": ">=4.2.3"
+  },
+  "files": [
+    "tasks"
+  ],
+  "keywords": [
+    "jspm",
+    "production",
+    "systemjs",
+    "workflows",
+    "build",
+    "bundle"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "justinwilaby",
+      "email": "jwilaby@gmail.com"
+    }
+  ]
+}
