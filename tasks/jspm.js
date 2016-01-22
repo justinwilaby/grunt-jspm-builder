@@ -32,6 +32,7 @@ module.exports = function (grunt) {
         const files = self.files;
         const commonBundle = self.data.commonBundle;
         const warn = traces.length < 2;
+        const bundleFunc = bundle;
         let commonTree;
         try {
             commonTree = warn ? traces[0] : builder.intersectTrees.apply(builder, traces);
@@ -49,16 +50,16 @@ module.exports = function (grunt) {
         if (warn) {
             const msg = grunt.log.wordlist(['Notice: ' + commonBundle.dest + ' will not be written since only 1 bundle was provided'], {color: 'yellow'})
             grunt.log.writeln(msg);
-            bundles[0] = bundle(commonTree, files[0].dest, options);
+            bundles[0] = bundleFunc(commonTree, files[0].dest, options);
         }
         else {
             // Common bundle
-            bundles[0] = bundle(commonTree, commonBundle.dest, commonBundle.options);
+            bundles[0] = bundleFunc(commonTree, commonBundle.dest, commonBundle.options);
             // all others
             traces.forEach((trace, index) => {
                 const subtractedTree = builder.subtractTrees(trace, commonTree);
                 const file = files[index];
-                const bundle = bundle(subtractedTree, file.dest, options);
+                const bundle = bundleFunc(subtractedTree, file.dest, options);
                 bundles.push(bundle);
             });
         }
