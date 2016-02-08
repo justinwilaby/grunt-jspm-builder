@@ -1,6 +1,6 @@
 {
   "name": "grunt-jspm-builder",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
     "jspm": "^0.16.15"
   },
