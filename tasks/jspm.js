@@ -114,7 +114,7 @@ module.exports = function (grunt) {
                 var moduleExpression = file.orig.src[0].replace(/\.js/, "");
                 thenables.push(jspm[bundle](moduleExpression, file.dest, options));
             });
-            Promise.all(thenables).then(done);
+            Promise.all(thenables).then(done, grunt.fail.warn);
         }
     });
 };
