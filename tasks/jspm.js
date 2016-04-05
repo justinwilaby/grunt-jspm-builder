@@ -88,6 +88,10 @@ module.exports = function (grunt) {
             mangle: true,
             minify: true
         });
+
+        if (options.inject) {
+            options.injectConfig = true;
+        }
         const data = self.data;
 
         const bundle = options.sfx ? "bundleSFX" : "bundle";
