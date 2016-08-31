@@ -2,10 +2,13 @@
 
 module.exports = function (grunt) {
     var config = require("jspm/lib/config");
+    var format = require("jspm/lib/ui").format;
 
     // jspm for simple builds
     var jspm = require("jspm");
     jspm.setPackagePath(".");
+
+    jspm.on('log', (type, msg) => grunt.log.writeln(format[type](msg)));
 
     // SystemJS Builder
     const builder = new jspm.Builder();
