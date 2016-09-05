@@ -97,7 +97,7 @@ grunt.initConfig({
                 sfx: false,
                 minify: true,
                 mangle: true,
-                sourceMaps: false
+                sourceMaps: false,
                 inject: true // important for jspm builds only
             },
             files: {
@@ -110,7 +110,7 @@ grunt.initConfig({
 ```
 
 ### Bundle Dependencies between 2 or More Source Trees
-Compare 2 or more bundles using arithmeic, extract their common dependencies and place them in a separate bundle and then build all the bundles.  
+Compare 2 or more bundles using arithmetic, extract their common dependencies and place them in a separate bundle and then build all the bundles.  
 
 ```js
 grunt.initConfig({
@@ -179,6 +179,12 @@ Use mangling with minification, defaults to true
 Default: `false`
 
 include or exclude source maps in the build, defaults to false
+
+### `injectConfig`
+
+Default: `false`
+
+When true, inject the bundle tree into the configuration file.  This is especially important when building one or more common bundles.
 
 ## License
 

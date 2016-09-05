@@ -1,11 +1,11 @@
 "use strict";
 
 module.exports = function (grunt) {
-    var config = require("jspm/lib/config");
-    var format = require("jspm/lib/ui").format;
+    const config = require("jspm/lib/config");
+    const format = require("jspm/lib/ui").format;
 
     // jspm for simple builds
-    var jspm = require("jspm");
+    const jspm = require("jspm");
     jspm.setPackagePath(".");
 
     jspm.on('log', (type, msg) => grunt.log.writeln(format[type](msg)));
@@ -13,8 +13,12 @@ module.exports = function (grunt) {
     // SystemJS Builder
     const builder = new jspm.Builder();
 
+    const booleanUnbundle = function () {
+        return (this.unbundle && jspm.unbundle()) || Promise.resolve()
+    };
+
     const traceModulesFromFiles = function () {
-        let files = this.files;
+        const files = this.files;
         grunt.log.writeln(grunt.log.wordlist(['Tracing expressions:'], {color: 'blue'}));
         const thenables = [];
         files.forEach(function (file) {
@@ -38,7 +42,7 @@ module.exports = function (grunt) {
         const bundleFunc = bundle;
         let commonTree;
         try {
-            commonTree = warn ? traces[0] : builder.intersectTrees.apply(builder, traces);
+            commonTree = warn ? traces[0] : builder.intersectTrees(...traces);
         }
         catch (error) {
             grunt.log.write(error);
@@ -51,7 +55,7 @@ module.exports = function (grunt) {
 
         const bundles = [];
         if (warn) {
-            const msg = grunt.log.wordlist(['Notice: ' + commonBundle.dest + ' will not be written since only 1 bundle was provided'], {color: 'yellow'})
+            const msg = grunt.log.wordlist(['Notice: ' + commonBundle.dest + ' will not be written since only 1 bundle was provided'], {color: 'yellow'});
             grunt.log.writeln(msg);
             bundles[0] = bundleFunc(commonTree, files[0].dest, options);
         }
@@ -98,7 +102,7 @@ module.exports = function (grunt) {
         const data = self.data;
 
         const bundle = options.sfx ? "bundleSFX" : "bundle";
-        const buildCommon = !!data.commonBundle;
+        const buildCommon = Boolean(data.commonBundle);
 
         if (buildCommon) {
             const done = self.async();
@@ -108,6 +112,7 @@ module.exports = function (grunt) {
             grunt.log.writeln(grunt.log.wordlist(['Building common bundle...'], {color: 'green'}));
 
             config.load()
+                .then(booleanUnbundle.bind(options))
                 .then(traceModulesFromFiles.bind(self))
                 .then(bundleCommonFromTraces.bind(self))
                 .then(config.save)
@@ -118,7 +123,7 @@ module.exports = function (grunt) {
             const thenables = [];
             const done = self.async();
             self.files.forEach(file => {
-                var moduleExpression = file.orig.src[0].replace(/\.js/, "");
+                const moduleExpression = file.orig.src[0].replace(/\.js/, "");
                 thenables.push(jspm[bundle](moduleExpression, file.dest, options));
             });
             Promise.all(thenables).then(done, grunt.fail.warn);
