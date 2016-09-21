@@ -42,7 +42,7 @@ module.exports = function (grunt) {
         const bundleFunc = bundle;
         let commonTree;
         try {
-            commonTree = warn ? traces[0] : builder.intersectTrees(...traces);
+            commonTree = warn ? traces[0] : builder.intersectTrees.apply(builder, traces);
         }
         catch (error) {
             grunt.log.write(error);
