@@ -1,6 +1,6 @@
 {
   "name": "grunt-jspm-builder",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
     "jspm": "^0.16.15"
   },
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/justinwilaby/grunt-jspm-builder.git"
+    "url": "https://github.com/selfagency/grunt-jspm-builder.git"
   },
   "scripts": {
     "test": "pushd test && jspm update && node ../node_modules/mocha/bin/mocha -G ./suites && popd"

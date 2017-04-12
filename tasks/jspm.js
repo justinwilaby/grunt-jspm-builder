@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         grunt.log.writeln(grunt.log.wordlist(['Tracing expressions:'], {color: 'blue'}));
         const thenables = [];
         files.forEach(function (file) {
-            const expression = file.orig.src[0].replace(/\.js/, "");
+            const expression = file.orig.src[0];
             thenables.push(builder.trace(expression).then(tree => {
                 grunt.log.write(expression + '...');
                 grunt.log.ok();
@@ -123,7 +123,7 @@ module.exports = function (grunt) {
             const thenables = [];
             const done = self.async();
             self.files.forEach(file => {
-                const moduleExpression = file.orig.src[0].replace(/\.js/, "");
+                const moduleExpression = file.orig.src[0];
                 thenables.push(jspm[bundle](moduleExpression, file.dest, options));
             });
             Promise.all(thenables).then(done, grunt.fail.warn);
