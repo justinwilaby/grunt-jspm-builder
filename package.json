@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/justinwilaby/grunt-jspm-builder.git"
+    "url": "https://github.com/selfagency/grunt-jspm-builder.git"
   },
   "scripts": {
     "test": "pushd test && jspm update && node ../node_modules/mocha/bin/mocha -G ./suites && popd"
